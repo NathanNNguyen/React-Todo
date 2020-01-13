@@ -18,6 +18,7 @@ class App extends React.Component {
     // find the item we clicked on
     // toggle the completed field
     // update state with the new todo data
+    console.log(id)
     const newTodoList = this.state.todoList.map(item => {
       if (item.id === id) {
         return {
@@ -45,6 +46,19 @@ class App extends React.Component {
     });
   };
 
+  clearCompleted = () => {
+    const removeTodo = this.state.todoList.filter(item => {
+      if (item.completed === true) {
+        return '';
+      } else {
+        return item;
+      }
+    });
+    this.setState({
+      list: [...this.state.todoList, removeTodo]
+    });
+  }
+
   render() {
     return (
       <div>
@@ -54,6 +68,7 @@ class App extends React.Component {
         <TodoList
           todoes={this.state.todoList}
           toggleItem={this.toggleItem}
+          clearCompleted={this.clearCompleted}
         />
 
       </div>

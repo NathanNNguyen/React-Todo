@@ -16,19 +16,19 @@ class App extends React.Component {
   };
   toggleItem = id => {
     // find the item we clicked on
-    // toggle the purchased field
-    // update state with the new grocery data
+    // toggle the completed field
+    // update state with the new todo data
     const newTodoList = this.state.todoList.map(item => {
       if (item.id === id) {
         return {
           ...item,
-          finished: !item.finished
+          completed: !item.completed
         };
       } else {
         return item;
       }
     });
-    // update groceryList
+    // update todoList
     this.setState({
       todoList: newTodoList
     });
@@ -38,7 +38,7 @@ class App extends React.Component {
     const newTodo = {
       name: todoText,
       id: Date.now(),
-      finished: false
+      completed: false
     };
     this.setState({
       todoList: [...this.state.todoList, newTodo]
@@ -50,7 +50,7 @@ class App extends React.Component {
       <div>
         <h2>Todo Lists</h2>
         <TodoForm addTodo={this.addTodo} />
-        
+
         <TodoList
           todoes={this.state.todoList}
           toggleItem={this.toggleItem}

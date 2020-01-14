@@ -4,13 +4,10 @@ import Todo from './Todo';
 const TodoList = props => {
   // const sortedList = props.groceries.sort((a, b) => a.purchased - b.purchased);
   return (
-    <div className="shopping-list">
-      {props.todoes.map(item => (
-        <Todo key={item.id} item={item} toggleItem={props.toggleItem} />
+    <div>
+      {props.todoes.map((item, index) => (
+        <Todo key={index} item={item} toggleItem={props.toggleItem} />
       ))}
-      <button onClick={props.clearCompleted}>
-        Clear completed
-      </button>
     </div>
   );
 };

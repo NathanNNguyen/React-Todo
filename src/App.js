@@ -2,23 +2,21 @@ import React from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 import { todoes } from './components/TodoComponents/data';
+import './App.css'
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
-
   constructor() {
     super();
     this.state = {
+      action: 'cc',
       todoList: todoes
-    }
+    };
+    // this.clearCompleted = this.clearCompleted.bind(this);
   };
   toggleItem = id => {
-    // find the item we clicked on
-    // toggle the completed field
-    // update state with the new todo data
-    console.log(id)
     const newTodoList = this.state.todoList.map(item => {
       if (item.id === id) {
         return {
@@ -31,6 +29,7 @@ class App extends React.Component {
     });
     // update todoList
     this.setState({
+      ...this.state,
       todoList: newTodoList
     });
   };
@@ -46,31 +45,28 @@ class App extends React.Component {
     });
   };
 
+  // to clear the completed tasks, we keep the task that's uncompleted, then update the state so that we get a new listing with uncompleted tasks
+  // think react as to update states instead of making UI
   clearCompleted = () => {
-    const removeTodo = this.state.todoList.filter(item => {
-      if (item.completed === true) {
-        return '';
-      } else {
-        return item;
-      }
-    });
+    const uncompletedTodoes = this.state.todoList.filter(todo => todo.completed === false);
     this.setState({
-      list: [...this.state.todoList, removeTodo]
-    });
-  }
+      ...this.state,
+      todoList: uncompletedTodoes
+    })
+
+  };
 
   render() {
     return (
-      <div>
+      <div className='flex'>
         <h2>Todo Lists</h2>
         <TodoForm addTodo={this.addTodo} />
 
         <TodoList
           todoes={this.state.todoList}
           toggleItem={this.toggleItem}
-          clearCompleted={this.clearCompleted}
         />
-
+        <button onClick={this.clearCompleted}>Clear Completed</button>
       </div>
     );
   }

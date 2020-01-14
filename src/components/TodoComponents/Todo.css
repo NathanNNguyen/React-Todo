@@ -1,0 +1,8 @@
+.item.completed {
+  text-decoration: line-through;
+}
+
+.incomplete {
+  text-decoration: none;
+} 
+

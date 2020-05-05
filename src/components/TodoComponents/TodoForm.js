@@ -10,7 +10,7 @@ class TodoForm extends React.Component {
 
   handleChange = e => {
     this.setState({
-      todoText: e.target.value
+      todoText: e.target.value,
     });
   };
 

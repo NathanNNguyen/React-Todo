@@ -11,11 +11,12 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      action: 'cc',
-      todoList: todoes
+      todoList: todoes,
+      text: ''
     };
     // this.clearCompleted = this.clearCompleted.bind(this);
   };
+
   toggleItem = id => {
     const newTodoList = this.state.todoList.map(item => {
       if (item.id === id) {
@@ -40,20 +41,24 @@ class App extends React.Component {
       id: Date.now(),
       completed: false
     };
-    this.setState({
-      todoList: [...this.state.todoList, newTodo]
-    });
+    if (newTodo.name) {
+      this.setState({
+        todoList: [...this.state.todoList, newTodo]
+      });
+    }
   };
 
   // to clear the completed tasks, we keep the task that's uncompleted, then update the state so that we get a new listing with uncompleted tasks
   // think react as to update states instead of making UI
   clearCompleted = () => {
     const uncompletedTodoes = this.state.todoList.filter(todo => todo.completed === false);
+
+    // update your state here
     this.setState({
       ...this.state,
-      todoList: uncompletedTodoes
+      // todoList: uncompletedTodoes
+      todoList: this.state.todoList.filter(todo => !todo.completed)
     })
-
   };
 
   render() {
